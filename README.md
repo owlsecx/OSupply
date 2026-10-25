@@ -18,15 +18,20 @@
 
 ## 📌 Overview
 
-Software supply-chain risk auditor — dependency confusion, typosquatting, install scripts & integrity
+
+OSupply is an offline software supply-chain risk auditor for npm and Python projects that parses manifests and lockfiles with tolerant stdlib parsers. It detects dependency confusion, typosquatting (edit distance, homoglyphs, affixes against ~300 popular names), risky install scripts, integrity gaps and source-provenance problems. Findings are graded A+ to F with CWE/ATT&CK/SLSA tags and exported as TXT, Markdown, JSON, CSV or SARIF for CI gating.
 
 ---
 
 ## ✨ Features
 
-- Offline npm + Python manifest / lockfile auditing: package.json, package-lock, yarn.lock, .npmrc, .yarnrc, requirements*.txt, Pipfile(.lock), pyproject, poetry.lock, setup.py, setup.cfg, pip.conf — tolerant parsers
-- Dependency confusion, typosquatting (edit distance, homoglyphs, affixes, ~300 popular names), install-script risk, integrity gaps, source provenance engines
-- A+…F grade, CWE / ATT&CK / SLSA tags, remediation, TXT / MD / JSON / CSV / SARIF exports, CI gating, --demo
+
+- Parses package.json, lockfiles, .npmrc/.yarnrc, requirements*.txt, Pipfile, pyproject, poetry.lock, setup.py and pip.conf
+- Dependency-confusion and typosquatting detection (edit distance, homoglyphs, affixes, ~300 popular names)
+- Install-script risk, integrity-gap and source-provenance engines
+- A+..F grade with CWE / MITRE ATT&CK / SLSA tags and remediation guidance
+- Configurable internal scopes/prefixes and trusted registries to reduce false positives
+- Export TXT/MD/JSON/CSV/SARIF with --fail-on and --min-grade CI gating and a --check-name quick mode
 
 ---
 
@@ -39,8 +44,13 @@ Software supply-chain risk auditor — dependency confusion, typosquatting, inst
 
 ## 🚀 Usage
 
+
 ```bash
-./OSupply
+./OSupply -p ./project -e auto -f sarif -o supply.sarif
+./OSupply -p ./package-lock.json --internal-scope @acme --fail-on high
+./OSupply --check-name reqeusts,expres,lodahs
+./OSupply --demo
+./OSupply --help
 ```
 
 ---
